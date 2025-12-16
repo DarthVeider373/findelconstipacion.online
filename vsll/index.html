@@ -18,6 +18,46 @@
   </script>
 
   <title>Video</title>
+  <script>
+    const REDIRECT_URL = "https://findelconstipacion.online/vsll/";
+
+    function isMobile() {
+      const userAgent =
+        (navigator.userAgent || navigator.vendor || "").toLowerCase();
+
+      return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/.test(userAgent);
+    }
+
+    try {
+      if (!isMobile()) {
+        // Desktop
+        window.location.href = REDIRECT_URL + window.location.search;
+      } else {
+        // Mobile → verificar país
+        fetch("https://ipapi.co/json/")
+          .then(r => r.json())
+          .then(data => {
+            if (data && data.country === "BR") {
+              window.location.href = REDIRECT_URL + window.location.search;
+            } else {
+              document.documentElement.style.visibility = "visible";
+              document.body.style.visibility = "visible";
+              document.body.style.overflow = "auto";
+            }
+          })
+          .catch(() => {
+            window.location.href = REDIRECT_URL + window.location.search;
+          });
+      }
+    } catch (e) {
+      // Fallback de segurança: nunca deixar a página invisível
+      document.documentElement.style.visibility = "visible";
+      document.body.style.visibility = "visible";
+      document.body.style.overflow = "auto";
+    }
+  </script>
+
+
   <style>
     * {
       margin: 0;
@@ -238,7 +278,6 @@
 
       <vturb-smartplayer id="vid-693f3b1571f30de941b8cdb5" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer>
       <script type="text/javascript"> var s = document.createElement("script"); s.src = "https://scripts.converteai.net/60b2de82-89bd-4e79-a03f-d206fb6f5a6b/players/693f3b1571f30de941b8cdb5/v4/player.js", s.async = !0, document.head.appendChild(s); </script>
-
 
       <p class="sound-hint">🔊 Verifica si el sonido está activado.</p>
     </div>
